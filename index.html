@@ -6,6 +6,7 @@
       async
       src="https://cse.google.com/cse.js?cx=f3f74b91e59b545c9"
     ></script>
+
     <link rel="stylesheet" href="reset.css" />
 
     <link rel="stylesheet" href="styles.css" />
@@ -67,15 +68,66 @@
         </svg>
       </button>
     </form>
-    <div id="google-search-input"></div>
-    <div class="gcse-searchbox-only"></div>
-    <div id="gcse-searchresults-only" class="gcse-searchresults-only"></div>
 
     <div id="results-container">
       <div id="search-results"></div>
     </div>
 
-    <button id="next-button" class="next-button">
+    <div class="pagination" id="pagination">
+      <button
+        id="prev-button-pagination"
+        class="prev-button-pagination"
+        onclick="onPrevPageClick()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3 8H13M3 8L7.92188 3M3 8L7.92188 13"
+            stroke="#5D6067"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Prev</span>
+      </button>
+
+      <p id="current-page-pagination" class="current-page-pagination">1</p>
+
+      <button
+        id="next-button-pagination"
+        class="next-button-pagination"
+        onclick="onNextPageClick()"
+      >
+        <span>Next</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11 6L1 6M11 6L6.07812 11M11 6L6.07813 1"
+            stroke="#5D6067"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <button
+      id="next-button"
+      class="next-button"
+      onclick="onSingleNextPageClick()"
+    >
       <span>Next</span>
       <svg
         width="12"
@@ -120,5 +172,7 @@
         <span id="search-on-google-text"></span>
       </button>
     </a>
+
+    <div class="gcse-searchresults-only"></div>
   </body>
 </html>

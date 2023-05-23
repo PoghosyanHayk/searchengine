@@ -1,21 +1,3 @@
-function initializationCallback() {
-  if (document.readyState == "complete") {
-    google.search.cse.element.render({
-      gname: "gsearch",
-      div: "google-search-input",
-      tag: "search",
-    });
-  } else {
-    google.setOnLoadCallback(function () {
-      google.search.cse.element.render({
-        gname: "gsearch",
-        div: "google-search-input",
-        tag: "search",
-      });
-    }, true);
-  }
-}
-
 function renderedCallback(name, query, promos, results, resultsDiv) {
   renderResults(results, query);
 
@@ -29,11 +11,13 @@ function executeSearch() {
 
     resultsContainer.innerHTML = "";
     document.getElementById("next-button").style.display = "none";
+    document.getElementById("pagination").style.display = "none";
     document.getElementById("search-on-google-link").href = "";
     return false;
   }
-
-  google.search.cse.element.getAllElements().gsearch.execute(searchInput);
+  google.search.cse.element
+    .getAllElements()
+    ["searchresults-only0"].execute(searchInput);
   return false;
 }
 
@@ -48,7 +32,7 @@ function extractInfoFromResult(result) {
   };
 }
 
-function formatViewsCount(views) {
+function formatViewsCount(views = 0) {
   if (views >= 1000000) {
     return (views / 1000000).toFixed(1) + "m";
   } else if (views >= 1000) {
@@ -59,7 +43,6 @@ function formatViewsCount(views) {
 }
 
 function onItemClick(videoobject) {
-  console.log("videoobject", videoobject);
   const overlay = document.createElement("div");
   overlay.className = "overlay";
 
@@ -91,7 +74,7 @@ function onItemClick(videoobject) {
   video.width = "360";
   video.height = "277";
   video.allowfullscreen = true;
-  video.src = videoobject.embedurl;
+  video.src = videoobject?.embedurl;
 
   overlay.appendChild(video);
   overlay.appendChild(footer);
@@ -141,7 +124,8 @@ function renderResults(googleSearchResult, query) {
       const source = document.createElement("span");
 
       source.className = "source";
-      source.textContent = new URL(videoobject.url).hostname;
+      source.textContent =
+        videoobject?.url && new URL(videoobject?.url)?.hostname;
 
       const views = document.createElement("span");
       views.className = "views";
@@ -159,8 +143,6 @@ function renderResults(googleSearchResult, query) {
 
       resultItem.onclick = () => onItemClick(videoobject);
 
-      console.log("resultItem", resultItem);
-
       resultsContainer.appendChild(resultItem);
     }
   );
@@ -174,19 +156,73 @@ function renderResults(googleSearchResult, query) {
     "search-on-google-text"
   ).textContent = `Search ${query} on Google`;
 
-  document.getElementById("next-button").style.display = "flex";
+  setTimeout(() => {
+    const currentPage = +document.getElementsByClassName(
+      "gsc-cursor-page gsc-cursor-current-page"
+    )[0].textContent;
 
-  document.getElementById("next-button").onclick = () => {
-    console.log("Next button clicked");
-  };
+    if (currentPage === 1) {
+      document.getElementById("next-button").style.display = "flex";
+      document.getElementById("pagination").style.display = "none";
+    } else {
+      document.getElementById("next-button").style.display = "none";
+      document.getElementById("pagination").style.display = "flex";
+
+      document.getElementById;
+      document.getElementById("current-page-pagination").textContent =
+        currentPage;
+    }
+  }, 1000);
 }
 
 window.__gcse = {
-  parsetags: "explicit",
-  initializationCallback,
   searchCallbacks: {
     web: {
       ready: renderedCallback,
     },
   },
 };
+
+function onNextPageClick() {
+  const currentPage = +document.getElementsByClassName(
+    "gsc-cursor-page gsc-cursor-current-page"
+  )[0]?.textContent;
+
+  if (currentPage) {
+    document
+      .getElementsByClassName("gsc-cursor")[0]
+      .children[currentPage].click();
+    document.getElementById("current-page-pagination").textContent =
+      currentPage + 1;
+  }
+}
+
+function onPrevPageClick() {
+  const currentPage = +document.getElementsByClassName(
+    "gsc-cursor-page gsc-cursor-current-page"
+  )[0].textContent;
+
+  if (currentPage === 2) {
+    document.getElementById("next-button").style.display = "flex";
+    document.getElementById("pagination").style.display = "none";
+  } else {
+    document.getElementById("current-page-pagination").textContent =
+      currentPage - 1;
+  }
+  document
+    .getElementsByClassName("gsc-cursor")[0]
+    .children[currentPage - 2].click();
+}
+
+function onSingleNextPageClick() {
+  const currentPage = +document.getElementsByClassName(
+    "gsc-cursor-page gsc-cursor-current-page"
+  )[0].textContent;
+  document
+    .getElementsByClassName("gsc-cursor")[0]
+    .children[currentPage].click();
+  document.getElementById("next-button").style.display = "none";
+  document.getElementById("pagination").style.display = "flex";
+  document.getElementById("current-page-pagination").textContent =
+    currentPage + 1;
+}

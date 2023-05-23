@@ -282,3 +282,44 @@ body {
 #search-on-google-link[href=""] {
   display: none;
 }
+
+#___gcse_0 {
+  display: none !important;
+}
+
+.pagination {
+  display: none;
+  align-items: center;
+  padding: 16px 146px;
+  height: 48px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 6px;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+
+.pagination button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  align-items: center;
+  display: flex;
+  width: 60px;
+
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  /* identical to box height, or 114% */
+
+  letter-spacing: 0.0025em;
+
+  /* Text - Regular */
+
+  color: #2b2f39;
+  justify-content: space-between;
+}
