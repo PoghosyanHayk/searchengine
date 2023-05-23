@@ -157,9 +157,27 @@ function renderResults(googleSearchResult, query) {
   ).textContent = `Search ${query} on Google`;
 
   setTimeout(() => {
-    const currentPage = +document.getElementsByClassName(
-      "gsc-cursor-page gsc-cursor-current-page"
-    )[0].textContent;
+    let currentPage =
+      +document.getElementsByClassName(
+        "gsc-cursor-page gsc-cursor-current-page"
+      )[0]?.textContent ?? "1";
+
+    if (!currentPage) {
+      const cursorContainer = document.getElementsByClassName(
+        "gsc-cursor-container-next"
+      )[0];
+      console.log(cursorContainer);
+      const cursorNumberedPage = document.getElementsByClassName(
+        "gsc-cursor-numbered-page"
+      )[0];
+      if (cursorNumberedPage) {
+        currentPage = +cursorNumberedPage.textContent.split(" ")[1];
+      } else {
+        if (cursorContainer) {
+          currentPage = 1;
+        }
+      }
+    }
 
     if (currentPage === 1) {
       document.getElementById("next-button").style.display = "flex";
@@ -184,9 +202,14 @@ window.__gcse = {
 };
 
 function onNextPageClick() {
-  const currentPage = +document.getElementsByClassName(
-    "gsc-cursor-page gsc-cursor-current-page"
-  )[0]?.textContent;
+  const currentPage =
+    +document.getElementsByClassName(
+      "gsc-cursor-page gsc-cursor-current-page"
+    )[0]?.textContent ?? "1";
+
+  if (!currentPage) {
+    document.getElementsByClassName("gsc-cursor-container-next")[0].click();
+  }
 
   if (currentPage) {
     document
@@ -198,9 +221,14 @@ function onNextPageClick() {
 }
 
 function onPrevPageClick() {
-  const currentPage = +document.getElementsByClassName(
-    "gsc-cursor-page gsc-cursor-current-page"
-  )[0].textContent;
+  const currentPage =
+    +document.getElementsByClassName(
+      "gsc-cursor-page gsc-cursor-current-page"
+    )[0]?.textContent ?? "1";
+
+  if (!currentPage) {
+    document.getElementsByClassName("gsc-cursor-container-previous")[0].click();
+  }
 
   if (currentPage === 2) {
     document.getElementById("next-button").style.display = "flex";
@@ -215,12 +243,19 @@ function onPrevPageClick() {
 }
 
 function onSingleNextPageClick() {
-  const currentPage = +document.getElementsByClassName(
-    "gsc-cursor-page gsc-cursor-current-page"
-  )[0].textContent;
-  document
-    .getElementsByClassName("gsc-cursor")[0]
-    .children[currentPage].click();
+  const currentPage = +(
+    document.getElementsByClassName(
+      "gsc-cursor-page gsc-cursor-current-page"
+    )[0]?.textContent ?? "1"
+  );
+  if (!currentPage) {
+    document.getElementsByClassName("gsc-cursor-container-next")[0].click();
+  } else {
+    document
+      .getElementsByClassName("gsc-cursor")[0]
+      .children[currentPage].click();
+  }
+
   document.getElementById("next-button").style.display = "none";
   document.getElementById("pagination").style.display = "flex";
   document.getElementById("current-page-pagination").textContent =
