@@ -23,89 +23,114 @@
     <script src="./index.js"></script>
   </head>
   <body>
-    <!-- Header -->
-    <h1 class="header">
-      <img class="header-icon" src="/assets/headerIcon.png" />
-      <span class="header-title">Simple Video Search Engine</span>
-    </h1>
+    <div>
+      <!-- Header -->
+      <h1 class="header">
+        <img class="header-icon" src="/assets/headerIcon.png" />
+        <span class="header-title">Simple Video Search Engine</span>
+      </h1>
 
-    <!-- Search Input -->
+      <!-- Search Input -->
 
-    <form
-      onsubmit="executeSearch();return false"
-      class="search-container"
-      id="search-container"
-    >
-      <input
-        class="search-input"
-        type="text"
-        id="search-input"
-        placeholder="Enter your search query"
-        value="rihanna music youtube"
-      />
-      <button
-        type="submit"
-        class="search-button"
-        onclick="executeSearch();return false"
+      <form
+        onsubmit="executeSearch();return false"
+        class="search-container"
+        id="search-container"
       >
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 13 13"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <input
+          class="search-input"
+          type="text"
+          id="search-input"
+          placeholder="Enter your search query"
+          value="rihanna music youtube"
+        />
+        <button
+          type="submit"
+          class="search-button"
+          onclick="executeSearch();return false"
         >
-          <circle
-            cx="5.5"
-            cy="5.5"
-            r="4.75"
-            stroke="#2A8CFF"
-            stroke-width="1.5"
-          />
-          <path
-            d="M8.84229 9.0271L11.8152 12"
-            stroke="#2A8CFF"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          />
-        </svg>
-      </button>
-    </form>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="5.5"
+              cy="5.5"
+              r="4.75"
+              stroke="#2A8CFF"
+              stroke-width="1.5"
+            />
+            <path
+              d="M8.84229 9.0271L11.8152 12"
+              stroke="#2A8CFF"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </form>
 
-    <div id="results-container">
-      <div id="search-results"></div>
-    </div>
+      <div id="results-container">
+        <div id="search-results"></div>
+      </div>
 
-    <div class="pagination" id="pagination">
-      <button
-        id="prev-button-pagination"
-        class="prev-button-pagination"
-        onclick="onPrevPageClick()"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <div class="pagination" id="pagination">
+        <button
+          id="prev-button-pagination"
+          class="prev-button-pagination"
+          onclick="onPrevPageClick()"
         >
-          <path
-            d="M3 8H13M3 8L7.92188 3M3 8L7.92188 13"
-            stroke="#5D6067"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <span>Prev</span>
-      </button>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 8H13M3 8L7.92188 3M3 8L7.92188 13"
+              stroke="#5D6067"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Prev</span>
+        </button>
 
-      <p id="current-page-pagination" class="current-page-pagination">1</p>
+        <p id="current-page-pagination" class="current-page-pagination">1</p>
+
+        <button
+          id="next-button-pagination"
+          class="next-button-pagination"
+          onclick="onNextPageClick()"
+        >
+          <span>Next</span>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 6L1 6M11 6L6.07812 11M11 6L6.07813 1"
+              stroke="#5D6067"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
 
       <button
-        id="next-button-pagination"
-        class="next-button-pagination"
-        onclick="onNextPageClick()"
+        id="next-button"
+        class="next-button"
+        onclick="onSingleNextPageClick()"
       >
         <span>Next</span>
         <svg
@@ -124,58 +149,39 @@
           />
         </svg>
       </button>
+
+      <a id="search-on-google-link" href="" target="_blank">
+        <button class="search-on-google">
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="5.5"
+              cy="5.5"
+              r="4.75"
+              stroke="#2A8CFF"
+              stroke-width="1.5"
+            />
+            <path
+              d="M8.84229 9.0271L11.8152 12"
+              stroke="#2A8CFF"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span id="search-on-google-text"></span>
+        </button>
+      </a>
+
+      <div class="gcse-searchresults-only"></div>
     </div>
 
-    <button
-      id="next-button"
-      class="next-button"
-      onclick="onSingleNextPageClick()"
-    >
-      <span>Next</span>
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 12 12"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11 6L1 6M11 6L6.07812 11M11 6L6.07813 1"
-          stroke="#5D6067"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </button>
-
-    <a id="search-on-google-link" href="" target="_blank">
-      <button class="search-on-google">
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 13 13"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="5.5"
-            cy="5.5"
-            r="4.75"
-            stroke="#2A8CFF"
-            stroke-width="1.5"
-          />
-          <path
-            d="M8.84229 9.0271L11.8152 12"
-            stroke="#2A8CFF"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          />
-        </svg>
-        <span id="search-on-google-text"></span>
-      </button>
-    </a>
-
-    <div class="gcse-searchresults-only"></div>
+    <footer>
+      <center>Made with ❤️ Hayk Poghosyan</center>
+    </footer>
   </body>
 </html>
