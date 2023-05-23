@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Video Search Engine</title>
+    <script
+      async
+      src="https://cse.google.com/cse.js?cx=f3f74b91e59b545c9"
+    ></script>
+    <link rel="stylesheet" href="reset.css" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <h1 class="header">
+      <img class="header-icon" src="/assets/headerIcon.png" />
+      <span class="header-title">Simple Video Search Engine</span>
+    </h1>
+
+    <!-- Search Input -->
+
+    <form
+      onsubmit="executeSearch();return false"
+      class="search-container"
+      id="search-container"
+    >
+      <input
+        class="search-input"
+        type="text"
+        id="search-input"
+        placeholder="Enter your search query"
+      />
+      <button
+        type="submit"
+        class="search-button"
+        onclick="executeSearch();return false"
+      >
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 13 13"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="5.5"
+            cy="5.5"
+            r="4.75"
+            stroke="#2A8CFF"
+            stroke-width="1.5"
+          />
+          <path
+            d="M8.84229 9.0271L11.8152 12"
+            stroke="#2A8CFF"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </form>
+    <div id="google-search-input"></div>
+    <div class="gcse-searchbox-only"></div>
+    <div id="gcse-searchresults-only" class="gcse-searchresults-only"></div>
+
+    <div id="results-container">
+      <div id="search-results"></div>
+    </div>
+
+    <button class="next-button">
+      <span>Next</span>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11 6L1 6M11 6L6.07812 11M11 6L6.07813 1"
+          stroke="#5D6067"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <button class="search-on-google">
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 13 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="5.5"
+          cy="5.5"
+          r="4.75"
+          stroke="#2A8CFF"
+          stroke-width="1.5"
+        />
+        <path
+          d="M8.84229 9.0271L11.8152 12"
+          stroke="#2A8CFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span>Search Black Pink on Google</span>
+    </button>
+  </body>
+</html>
